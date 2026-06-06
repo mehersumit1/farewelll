@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Farewell Invitation Reveal</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    background:linear-gradient(
+        180deg,
+        #ffffff,
+        #f8f9fa,
+        #eef2ff
+    );
+}
+
+/* Main Container */
+
+.container{
+    position:relative;
+    width:420px;
+    height:620px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+    perspective:1200px;
+}
+
+/* Premium Gift File */
+
+.file{
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    background:linear-gradient(
+        145deg,
+        #111,
+        #1f1f1f,
+        #000
+    );
+
+    border-radius:25px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35),
+        0 0 30px rgba(255,215,0,0.25);
+
+    overflow:hidden;
+    transition:1.5s ease;
+}
+
+/* Folder Tab */
+
+.file::before{
+    content:"";
+    position:absolute;
+    top:-20px;
+    left:30px;
+
+    width:150px;
+    height:40px;
+
+    background:linear-gradient(
+        145deg,
+        #222,
+        #000
+    );
+
+    border-radius:15px 15px 0 0;
+}
+
+/* Gold Border */
+
+.file::after{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:2px solid gold;
+    border-radius:18px;
+    opacity:0.7;
+}
+
+/* Ribbon */
+
+.ribbon-h{
+    position:absolute;
+    width:100%;
+    height:24px;
+
+    top:50%;
+    transform:translateY(-50%);
+
+    background:linear-gradient(
+        90deg,
+        #b8860b,
+        gold,
+        #b8860b
+    );
+
+    z-index:10;
+    transition:1.2s;
+}
+
+.ribbon-v{
+    position:absolute;
+    height:100%;
+    width:24px;
+
+    left:50%;
+    transform:translateX(-50%);
+
+    background:linear-gradient(
+        180deg,
+        #b8860b,
+        gold,
+        #b8860b
+    );
+
+    z-index:10;
+    transition:1.2s;
+}
+
+/* Ribbon Knot */
+
+.knot{
+    position:absolute;
+
+    width:70px;
+    height:70px;
+
+    background:gold;
+    border-radius:50%;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    z-index:15;
+
+    box-shadow:0 0 20px gold;
+}
+
+/* Poster */
+
+.poster{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    border-radius:25px;
+
+    opacity:0;
+
+    transform:translate(-50%,-50%) scale(0.9);
+
+    transition:all 1.8s ease;
+
+    z-index:5;
+}
+
+/* Open Animation */
+
+.open .ribbon-h{
+    transform:translateX(-700px);
+    opacity:0;
+}
+
+.open .ribbon-v{
+    transform:translateY(-700px);
+    opacity:0;
+}
+
+.open .knot{
+    opacity:0;
+}
+
+.open .file{
+    transform:rotateX(75deg) scale(0.85);
+    opacity:0.1;
+}
+
+.open .poster{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+}
+
+/* Click Text */
+
+.clickText{
+    position:absolute;
+    bottom:-55px;
+
+    width:100%;
+    text-align:center;
+
+    font-size:20px;
+    font-weight:600;
+    color:#111;
+
+    animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.4;
+    }
+}
+
+/* Hover Effect */
+
+.container:hover{
+    transform:scale(1.03);
+    transition:.4s;
+}
+
+/* Balloons */
+
+.balloons{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
+    pointer-events:none;
+}
+
+.balloon{
+    position:absolute;
+    bottom:-150px;
+
+    width:70px;
+    height:90px;
+
+    border-radius:50%;
+
+    animation:floatUp linear infinite;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.balloon::before{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:80px;
+    background:#888;
+
+    left:50%;
+    top:90px;
+}
+
+.b1{
+    left:5%;
+    background:#ff6b6b;
+    animation-duration:12s;
+}
+
+.b2{
+    left:18%;
+    background:#4dabf7;
+    animation-duration:14s;
+    animation-delay:2s;
+}
+
+.b3{
+    left:30%;
+    background:#ffd43b;
+    animation-duration:11s;
+}
+
+.b4{
+    left:45%;
+    background:#69db7c;
+    animation-duration:15s;
+}
+
+.b5{
+    left:60%;
+    background:#da77f2;
+    animation-duration:13s;
+}
+
+.b6{
+    left:72%;
+    background:#ffa94d;
+    animation-duration:10s;
+}
+
+.b7{
+    left:85%;
+    background:#74c0fc;
+    animation-duration:14s;
+}
+
+.b8{
+    left:95%;
+    background:#f06595;
+    animation-duration:12s;
+}
+
+@keyframes floatUp{
+
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    50%{
+        transform:translateY(-50vh) rotate(10deg);
+    }
+
+    100%{
+        transform:translateY(-120vh) rotate(-10deg);
+        opacity:0;
+    }
+}
+
+/* Mobile Responsive */
+
+@media(max-width:500px){
+
+    .container{
+        width:320px;
+        height:500px;
+    }
+
+    .clickText{
+        font-size:16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="balloons">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+    <div class="balloon b5"></div>
+    <div class="balloon b6"></div>
+    <div class="balloon b7"></div>
+    <div class="balloon b8"></div>
+</div>
+
+<div class="container" onclick="openInvitation()">
+
+    <div class="file"></div>
+
+    <div class="ribbon-h"></div>
+    <div class="ribbon-v"></div>
+    <div class="knot"></div>
+
+    <img
+        src="poster.jpeg"
+        class="poster"
+        id="poster"
+        alt="Farewell Poster"
+    >
+
+    <div class="clickText">
+        🎁 Click To Open Invitation
+    </div>
+
+</div>
+
+<audio id="music">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let isOpen = false;
+
+function openInvitation(){
+
+    if(isOpen) return;
+
+    document
+        .querySelector(".container")
+        .classList.add("open");
+
+    document
+        .getElementById("music")
+        .play();
+
+    isOpen = true;
+
+    setTimeout(() => {
+
+        confetti({
+            particleCount:250,
+            spread:180,
+            startVelocity:40,
+            origin:{
+                y:0.6
+            }
+        });
+
+    },1200);
+}
+
+</script>
+
+</body>
+</html>
